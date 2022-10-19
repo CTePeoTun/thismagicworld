@@ -1,12 +1,23 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMW.Data;
 
-public class Boostrap : MonoBehaviour
+namespace TMW
 {
-    private void test() 
+    public class Boostrap : MonoBehaviour
     {
-        Grid g = new Grid();
-        Tilemap t = new Tilemap();
+        [SerializeField] private GameData _gameData;
+        [SerializeField] private WorldGrid _worldGrid;
 
+        private void Awake()
+        {
+            InitData();
+            _worldGrid.Create(3);
+        }
+
+        private void InitData()
+        {
+            ClientData.Init(_gameData);
+        }
     }
 }
