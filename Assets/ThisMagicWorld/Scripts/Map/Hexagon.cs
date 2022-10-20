@@ -1,3 +1,4 @@
+using TMW.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,9 +19,9 @@ namespace TMW
 
         public void Init(HexagonDto dto)
         {
-            _type = dto.Info.Type;
-            _isPassable = dto.Info.IsPassable;        
-            _spriteRenderer.sprite = dto.Info.Sprite;
+            _type = dto.Type;
+            HexagonInfo info = ClientData.GetHexagonInfo(_type);       
+            _spriteRenderer.sprite = info.Sprite;
             _coordinate = dto.Coordinate;
         }
 

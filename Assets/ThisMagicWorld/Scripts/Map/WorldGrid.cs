@@ -11,38 +11,34 @@ namespace TMW
         [SerializeField] private float _width = 1;
         [SerializeField] private float _heigth = 1;
 
-        public void Create(int size)
+        private List<Hexagon> _hexagons = new List<Hexagon>();
+
+        public void Create(List<HexagonDto> dtos)
         {
-            if (size < 0)
-                size = -size;
-            for (int y = -size; y <= size; y++)
+            foreach (var dto in dtos)
             {
-                for (int x = -size; x <= size; x++)
-                {
-                    if (Mathf.Abs(x+y) <= size)
-                        InitHexagon(x, y);
-                }
+                Hexagon hexagon = CreateHexagon(dto);
+                _hexagons.Add(hexagon);
             }
         }
 
-        private void InitHexagon(int x, int y)
+        private Hexagon CreateHexagon(HexagonDto dto)
         {
             Hexagon hexagon = Instantiate(_hexagonPrefab) as Hexagon;
-            Vector2Int coordinate = new Vector2Int(x, y);
-            HexagonType type = GetRandomHexagonType();
-            HexagonInfo info = ClientData.GetHexagonInfo(type);
-            HexagonDto dto = new HexagonDto(coordinate, info);
             hexagon.Init(dto);
-            hexagon.transform.localPosition = new Vector2(
-                    ((float)x + (float)y/2) * _width,
-                    (float)y * _heigth
-                );
+            hexagon.transform.SetParent(this.transform);
+            hexagon.transform.localPosition = GetHexagonPosition(dto.Coordinate);
+            return hexagon;
         }
 
-        private HexagonType GetRandomHexagonType()
+        private Vector2 GetHexagonPosition(Vector2Int coordinate)
         {
-            var random = new System.Random();
-            return random.NextEnum<HexagonType>();
+            Vector2 result = coordinate;
+            result.x = (result.x + result.y / 2) *_width;
+            result.y = result.y * _heigth;
+            return result;
         }
+
+        
     }
 }

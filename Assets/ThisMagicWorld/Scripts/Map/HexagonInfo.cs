@@ -8,10 +8,9 @@ namespace TMW.Data
     {
         [SerializeField] private HexagonType _type;
         [SerializeField] private Sprite _sprite;
-        [SerializeField] private bool _isPassable = true;
 
         public HexagonType Type => _type;
         public Sprite Sprite => _sprite;
-        public bool IsPassable => _isPassable;
+
     }
 }

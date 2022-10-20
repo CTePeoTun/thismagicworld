@@ -5,13 +5,13 @@ namespace TMW
 {
     public class HexagonDto
     {
+        public HexagonType Type { get; set; }
         public Vector2Int Coordinate { get;  set; }
-        public HexagonInfo Info { get; set; }
 
-        public HexagonDto(Vector2Int coordinate, HexagonInfo info)
+        public HexagonDto(HexagonType type, Vector2Int coordinate)
         {
-            Coordinate = coordinate;
-            Info = info;
+            Type = type;
+            Coordinate = coordinate;            
         }
     }
 }
