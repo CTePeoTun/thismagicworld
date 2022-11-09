@@ -29,6 +29,5 @@ namespace TMW
         {
             Debug.Log("Selected", this.gameObject);
         }
-
     }
 }
